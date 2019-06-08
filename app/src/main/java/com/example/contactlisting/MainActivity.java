@@ -2,6 +2,7 @@ package com.example.contactlisting;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -27,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Contact> storeContacts;
     Cursor cursor;
     public static final int RequestPermissionCode = 1;
-
+    ProgressDialog dialog;
     RecyclerView recyclerView;
     CustomAdapter customAdapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -46,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, RequestPermissionCode);
         } else {
             LoadContactInBackground loadContact = new LoadContactInBackground();
+            dialog = new ProgressDialog(MainActivity.this);
+            dialog.setMessage("Contacts are being synced..");
+            dialog.show();
             loadContact.execute();
         }
 
@@ -54,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        storeContacts.clear();
         showContacts();
     }
 
@@ -134,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(aVoid);
             LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             int count = storeContacts.size();
+            dialog.dismiss();
             customAdapter = new CustomAdapter(MainActivity.this, storeContacts);
             recyclerView.setAdapter(customAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
