@@ -62,6 +62,7 @@ public class CustomContactDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(dialogView);
         return builder.create();
+
     }
 
     private boolean callUser(String contactNumber) {
