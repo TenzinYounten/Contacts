@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ddd"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/android_card_view_example"
+        android:layout_width="match_parent"
+        android:elevation="@dimen/cardview_compat_inset_shadow"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:elevation="4dp"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="18dp"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/image"
+                android:paddingBottom="5dp"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Name  "
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:layout_below="@+id/name"
+                android:layout_toRightOf="@+id/image"
+                android:text="Ph : " />
+            <TextView
+                android:id="@+id/phoneTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:layout_toRightOf="@+id/phone"
+                android:text="Ph. : " />
+
+            <TextView
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email : "
+                android:layout_toRightOf="@+id/image"
+                style="@style/TextAppearance.AppCompat.Medium"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:layout_below="@+id/phone"
+                android:layout_above="@+id/callLayout"/>
+            <HorizontalScrollView
+                android:id="@+id/emailScroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/email"
+                android:layout_below="@+id/phone"
+                android:layout_above="@+id/callLayout"
+                >
+                <TextView
+                    android:id="@+id/emailTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Email : "
+                    style="@style/TextAppearance.AppCompat.Medium"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    />
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:id="@+id/callLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image"
+                android:orientation="horizontal"
+                android:weightSum="1">
+
+                <Button
+                    android:id="@+id/call"
+                    android:layout_width="0dp"
+                    android:layout_weight=".5"
+                    android:layout_height="wrap_content"
+                    android:text="Call"
+                    />
+                <Button
+                    android:id="@+id/dismiss"
+                    android:layout_weight=".5"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Cancel"
+                    android:layout_toRightOf="@+id/call"
+                    />
+            </LinearLayout>
+
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
+
