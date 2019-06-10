@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && checkSelfPermission(Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, RequestPermissionCode);
         } else {
+            Toast.makeText(getApplicationContext(),"Contacts are being synced, please wait ..", Toast.LENGTH_LONG).show();
             LoadContactInBackground loadContact = new LoadContactInBackground();
             /*dialog = new ProgressDialog(MainActivity.this);
             dialog.setMessage("Contacts are being synced..");
