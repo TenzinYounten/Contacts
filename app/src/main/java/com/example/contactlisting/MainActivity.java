@@ -47,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
             requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, RequestPermissionCode);
         } else {
             LoadContactInBackground loadContact = new LoadContactInBackground();
-            dialog = new ProgressDialog(MainActivity.this);
+            /*dialog = new ProgressDialog(MainActivity.this);
             dialog.setMessage("Contacts are being synced..");
-            dialog.show();
+            dialog.show();*/
             loadContact.execute();
         }
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        storeContacts.clear();
+        /*storeContacts.clear();*/
         showContacts();
     }
 
@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
+            storeContacts.clear();
 
             ContentResolver contentResolver = getContentResolver();
             Cursor cursor = contentResolver.query(ContactsContract.Contacts.CONTENT_URI, PROJECTION, null, null,  ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME + " ASC");
@@ -105,17 +106,17 @@ public class MainActivity extends AppCompatActivity {
 
                 String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
                 String name = cursor.getString(cursor.getColumnIndex(DISPLAY_NAME));
+                String email = "",number = "", imageURI = "";
 
                 Cursor emailCursor = contentResolver.query(ContactsContract.CommonDataKinds.Email.CONTENT_URI, null,
                         ContactsContract.CommonDataKinds.Email.CONTACT_ID + " = ?", new String[]{id}, null);
-                String email = "",number = "", imageURI = "";
                 if (emailCursor != null && emailCursor.moveToFirst()) {
                     email = emailCursor.getString(emailCursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.DATA));
                     emailCursor.close();
                 }
+
                 Cursor numberCursor = contentResolver.query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null,
                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ?", new String[]{id}, null);
-
                 if (numberCursor != null && numberCursor.moveToFirst()) {
                     number = numberCursor.getString(numberCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
                     imageURI = numberCursor.getString(numberCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI));
@@ -137,9 +138,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            LayoutInflater layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            int count = storeContacts.size();
-            dialog.dismiss();
+           /* dialog.dismiss();*/
             customAdapter = new CustomAdapter(MainActivity.this, storeContacts);
             recyclerView.setAdapter(customAdapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
